@@ -74,6 +74,17 @@ pipeline {
 
        }
 
+	
+        stage('Cleanup Docker Environment') {
+            steps {
+                script {
+                    // Clean up unused Docker resources
+                    sh 'docker system prune -f'
+                    sh 'docker volume prune -f'
+                }
+            }
+        }
+
        stage("Trivy Scan") {
            steps {
                script {
